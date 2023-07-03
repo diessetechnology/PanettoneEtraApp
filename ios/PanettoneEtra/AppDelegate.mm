@@ -1,6 +1,6 @@
 #import "AppDelegate.h"
 #import "RNBootSplash.h"
-
+#import <GoogleMaps/GoogleMaps.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTLinkingManager.h>
 
@@ -8,6 +8,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [GMSServices provideAPIKey:@"AIzaSyAIdjCOr2pJoCP9p2-eRKU1YPfUk1wHFKs"];
   self.moduleName = @"PanettoneEtra";
 
   // You can add your custom initial props in the dictionary below.

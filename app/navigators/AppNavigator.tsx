@@ -17,6 +17,8 @@ import * as Screens from "app/screens"
 import Config from "../config"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { colors } from "app/theme"
+import { TopBar } from "../components/TopBar"
+import { BottomBar } from "../components/BottomBar"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -34,7 +36,10 @@ import { colors } from "app/theme"
 export type AppStackParamList = {
   Welcome: undefined
   // 🔥 Your screens go here
-  // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
+  Etra: undefined
+	PuntiVendita: undefined
+	Info: undefined
+	// IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
 
 /**
@@ -58,7 +63,10 @@ const AppStack = observer(function AppStack() {
     >
           <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} />
       {/** 🔥 Your screens go here */}
-      {/* IGNITE_GENERATOR_ANCHOR_APP_STACK_SCREENS */}
+      <Stack.Screen name="Etra" component={Screens.EtraScreen} />
+			<Stack.Screen name="PuntiVendita" component={Screens.PuntiVenditaScreen} />
+			<Stack.Screen name="Info" component={Screens.InfoScreen} />
+			{/* IGNITE_GENERATOR_ANCHOR_APP_STACK_SCREENS */}
     </Stack.Navigator>
   )
 })
@@ -77,7 +85,9 @@ export const AppNavigator = observer(function AppNavigator(props: NavigationProp
       theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
       {...props}
     >
+      <TopBar></TopBar>
       <AppStack />
+      <BottomBar></BottomBar>
     </NavigationContainer>
   )
 })
