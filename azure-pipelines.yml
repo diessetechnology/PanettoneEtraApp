@@ -1,0 +1,47 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  name: macOS
+
+steps:
+- script: |
+    yarn install
+  displayName: 'Yarn'
+
+- script: |
+    cdxgen -o bom.xml
+    dtrack-cli --server https://deptrack.diessemagicdocker.online/ --bom-path bom.xml --api-key Q4Dpcy9kdihuiwPJdWuk0DjajuayiFFi --project-name "Panettone Etra Mobile App" --project-version latest --auto-create true
+  displayName: 'DT-SBOMUpload'
+
+- script: |
+    security unlock-keychain -p 10121997 /Users/techillusionist/Library/Keychains/login.keychain-db
+    cd ios
+    pod install
+    cd ..
+    npx react-native bundle --entry-file='index.js' --bundle-output='./ios/PanettoneEtra/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'
+    xcodebuild -workspace ./ios/PanettoneEtra.xcworkspace -scheme 'PanettoneEtra' -derivedDataPath ./ios/build -archivePath ./ios/archive/PanettoneEtra.xcarchive archive | xcpretty
+    xcodebuild -exportArchive -archivePath ios/archive/PanettoneEtra.xcarchive -exportPath ios/ipa -exportOptionsPlist ios/exportOptions.plist
+    mc cp ./ios/ipa/PanettoneEtra.ipa builds/panettoneetra-mobile/ios/development/Etra-$(Build.SourceVersion)-$(date +"%d-%m-%Y").ipa
+  displayName: 'iOS'
+  
+- script: |
+    npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
+    cd android
+    ./gradlew assembleDebug
+    cd ..
+    mc cp android/app/build/outputs/apk/debug/app-debug.apk builds/panettoneetra-mobile/android/development/etra-$(Build.SourceVersion)-$(date +"%d-%m-%Y").apk
+  displayName: 'Android'
+
+- task: SendTelegramNotification@0
+  inputs:
+    botToken: '2122609323:AAEQ3o3aEfQCSGpx68n2dmtPbr8L_ytXe_A'
+    chats: '2129518171'
+    teamUrl: true
+    buildNumber: true
+    buildQueuedBy: true
