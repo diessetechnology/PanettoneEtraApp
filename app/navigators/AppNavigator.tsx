@@ -19,6 +19,8 @@ import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { colors } from "app/theme"
 import { TopBar } from "../components/TopBar"
 import { BottomBar } from "../components/BottomBar"
+import { ApplicationProvider } from "@ui-kitten/components"
+import * as eva from '@eva-design/eva';
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -80,6 +82,7 @@ export const AppNavigator = observer(function AppNavigator(props: NavigationProp
   useBackButtonHandler((routeName) => exitRoutes.includes(routeName))
 
   return (
+    <ApplicationProvider {...eva} theme={eva.light}>
     <NavigationContainer
       ref={navigationRef}
       theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
@@ -89,5 +92,6 @@ export const AppNavigator = observer(function AppNavigator(props: NavigationProp
       <AppStack />
       <BottomBar></BottomBar>
     </NavigationContainer>
-  )
+    </ApplicationProvider>
+      )
 })

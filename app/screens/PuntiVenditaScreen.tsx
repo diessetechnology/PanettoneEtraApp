@@ -50,6 +50,17 @@ export const PuntiVenditaScreen: FC<PuntiVenditaScreenProps> = observer(function
       title: "Cremeria Vienna - Taranto (Corso Italia)",
       description: "Corso Italia, 271 74121 Taranto (TA)"
     },
+    {
+      title: "Cremeria Vienna - San Giorgio Jonico",
+      description: "Via d’Aquino, 120 - 74123 Taranto (TA)"
+    },
+    {
+      title: "Cremeria Vienna - Nea smirni",
+      description: "Leof. El. Venizelou 52 - 171 22 Nea Smirni, Atene (Grecia)"
+    },
+    {
+      title: "Cremeria Vienna - Monteparano",
+      description: "Piazza Castello, 13 - 74020 Monteparano (TA)"},
   ];
 
   type ItemProps = {
@@ -116,6 +127,24 @@ export const PuntiVenditaScreen: FC<PuntiVenditaScreenProps> = observer(function
           image={require("../../assets/images/map.png")}
           title={"Cremeria Vienna - San Giorgio Jonico"}
           description={"Via d’Aquino, 120 74123 Taranto (TA)"}
+        />
+        <Marker
+          coordinate={{latitude: 40.4448581,longitude: 17.4151081}}
+          image={require("../../assets/images/map.png")}
+          title={"Cremeria Vienna - Monteparano"}
+          description={"Piazza Castello, 13 - 74020 Monteparano (TA)"}
+        />
+        <Marker
+          coordinate={{latitude: 40.4448581,longitude: 17.4151081}}
+          image={require("../../assets/images/map.png")}
+          title={"Cremeria Vienna - Massafra"}
+          description={"Corso Roma, 120/122 - 74016 Massafra (TA)"}
+        />
+        <Marker
+          coordinate={{latitude: 40.4448581,longitude: 17.4151081}}
+          image={require("../../assets/images/map.png")}
+          title={"Cremeria Vienna - Triggiano"}
+          description={"Via Dante Alighieri, 143 - 70019 Triggiano (BA)"}
         />
         <Marker
           coordinate={{latitude: 37.9437658,longitude: 23.7137791}}
